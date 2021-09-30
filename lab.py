@@ -143,6 +143,23 @@ def get_movie_list(database, actor_id, goal_actor):
                 movie.append(item[2])
     return movie       
 
+def actor_path(database, actor_id, goal_test_function):
+    path = []
+    min_path = None
+    # print(min_path)
+    for actor_2 in database.keys():
+        # print("1")
+        if goal_test_function(actor_2) == True:
+            ls = actor_to_actor_path(database, actor_id, actor_2)  
+            path.append(ls)
+            # print('2')    
+        if len(path)>0:    
+            min_path = min(path, key=len)
+        else:
+            min_path = None
+    return min_path
+
+
 if __name__ == '__main__':
     # options: tiny, small, large
     with open('resources/large.pickle', 'rb') as f:
